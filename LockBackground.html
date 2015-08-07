@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, user-scalable=no, width=device-width">
+
+<!-- Light Mode -->
+<style type="text/css">
+@font-face {
+  font-family: "Geo Sans Light";
+  src: url("fonts/GeoSansLight.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  font-family: "Geo Sans Light", sans-serif;
+  font-size: 1.30em;
+  line-height: 3;
+  height: 100%;
+  width: 100%;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  background: transparent;
+  text-align: center;
+  zoom: 0.95;
+}
+
+.clock {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.clockface {
+  position: fixed;
+  top: 50px;
+  left: -10px;
+}
+
+.hour,
+.min,
+.sec {
+  width: 10px;
+  height: 80px;
+  color: gray;
+  -webkit-transition: width 0.5s ease;
+          transition: width 0.5s ease;
+  box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.20);
+  text-align: center;
+}
+
+.hour {
+  background: white;
+  opacity: 0.8;
+  z-index: 5;
+}
+
+.min {
+  background: white;
+  opacity: 0.6;
+  z-index: 4;
+}
+
+.sec {
+  background: white;
+  opacity: 0.4;
+  z-index: 3;
+}
+
+.h-text,
+.m-text,
+.s-text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+</style>
+
+<!-- Dark Mode -->
+<!-- <style type="text/css">
+@font-face {
+  font-family: "Geo Sans Light";
+  src: url("fonts/GeoSansLight.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  font-family: "Geo Sans Light", sans-serif;
+  font-size: 1.30em;
+  line-height: 3;
+  height: 100%;
+  width: 100%;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  background: transparent;
+  text-align: center;
+  zoom: 0.95;
+}
+
+.clock {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.clockface {
+  position: fixed;
+  top: 50px;
+  left: -10px;
+}
+
+.hour,
+.min,
+.sec {
+  width: 10px;
+  height: 80px;
+  color: gray;
+  -webkit-transition: width 0.5s ease;
+          transition: width 0.5s ease;
+  box-shadow: 0 3px 10px 1px rgba(0, 0, 0, 0.20);
+  text-align: center;
+}
+
+.hour {
+  background: black;
+  opacity: 0.8;
+  z-index: 5;
+}
+
+.min {
+  background: black;
+  opacity: 0.6;
+  z-index: 4;
+}
+
+.sec {
+  background: black;
+  opacity: 0.4;
+  z-index: 3;
+}
+
+.h-text,
+.m-text,
+.s-text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+</style> -->
+
+<script type="text/javascript">
+var update = setInterval(clock, 1000);
+
+function clock() {
+  "use strict";
+  var date = new Date();
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var sec = date.getSeconds();
+  
+  var hourObj = document.getElementById("hour");
+  var minObj = document.getElementById("min");
+  var secObj = document.getElementById("sec");
+  
+  var hourText = document.getElementById("h-text");
+  var minText = document.getElementById("m-text");
+  var secText = document.getElementById("s-text");
+
+  hourObj.style.width = hour + 200 + "px";
+  minObj.style.width = min + 200 + "px";
+  secObj.style.width = sec + 200 + "px";
+
+  /*
+  if (hour >= 13) {
+    hour -= 12;
+  }
+  if (hour === 0) {
+    hour = 12;
+    hourObj.style.width = 212 + "px";
+  }
+  */
+
+  if (min < 10) {
+    min = "0" + min;
+  }
+  if (sec < 10) {
+    sec = "0" + sec;
+  }
+  
+  hourText.innerHTML = hour;
+  minText.innerHTML = min;
+  secText.innerHTML = sec;
+}
+</script>
+    
+  </head>
+  
+  <body>
+
+    <div class="clockface">
+    <div class="clock">
+
+      <div class="hour" id="hour">
+        <span class="h-text" id="h-text"></span>
+      </div>
+      
+      <div class="min" id="min">
+        <span class="m-text" id="m-text"></span>
+      </div>
+      
+      <div class="sec" id="sec">
+        <span class="s-text" id="s-text"></span>
+      </div>
+
+    </div>
+    </div>
+
+    <!-- <script type="text/javascript" src="js/clock.js"></script> -->
+    
+  </body>
+</html>
